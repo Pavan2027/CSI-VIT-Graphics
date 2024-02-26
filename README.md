@@ -12,6 +12,6 @@
 <br><br>
 
 ### NOTE:
--> The files do not contain shaders.<br>
--> If user enters invalid token, close the opened program and run again.<br>
--> The models can be rotated around by using arrow keys.
+-> The models can be rotated around by using arrow keys.<br>
+-> If user enters invalid token, an empty window opens.<br>
+-> Shaders were not implemented due to lack of time and knowledge/experience.<br>
