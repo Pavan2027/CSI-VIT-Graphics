@@ -4,12 +4,14 @@ from OpenGL.GLUT import *
 from OpenGL.GLU import *
 import json
 
-# Global variables
+# Global variables for rotating the model
 rotation_x = 0.0
 rotation_y = 0.0
 
+# Taking the input model
 token = input("Enter token: ")
 
+# Initializing
 def init():
     glClearColor(0.0, 0.0, 0.0, 1.0)
     glClearDepth(1.0)
@@ -17,6 +19,7 @@ def init():
     glDepthFunc(GL_LEQUAL)
     glShadeModel(GL_SMOOTH)
 
+# Shaping according to the matrix
 def reshape(width, height):
     glViewport(0, 0, width, height)
     glMatrixMode(GL_PROJECTION)
@@ -25,6 +28,8 @@ def reshape(width, height):
     glMatrixMode(GL_MODELVIEW)
     glLoadIdentity()
 
+# Drawing the chosen model
+# Opens empty window if the model given is not in the data.json file
 def draw_model(data, scale_factor):
     if token in data:
         for path in data[token][0]['paths']:
@@ -35,9 +40,11 @@ def draw_model(data, scale_factor):
     else:
         print("Invalid Token!")
 
+# Displaying the model to screen
 def display():
     global rotation_x, rotation_y
     
+    # Clearing previous screen
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
     glLoadIdentity()
 
@@ -50,8 +57,10 @@ def display():
     glColor3f(1.0, 1.0, 1.0)
     draw_model(data, 10)
     
+    # Showing front buffer
     glutSwapBuffers()
 
+# On pressing the keys (for rotation)
 def special_key_pressed(key, x, y):
     global rotation_x, rotation_y
     
@@ -72,11 +81,13 @@ def main():
     filename = 'data.json'
     data = json.load(open(filename, 'r'))
 
+
     glutInit(sys.argv)
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH)
     glutInitWindowSize(800, 600)
     glutInitWindowPosition(100, 100)
     glutCreateWindow(b'3D Model Viewer')
+    glutSetWindowTitle(b"CSI VIT Graphics Project")
     init()
     glutDisplayFunc(display)
     glutReshapeFunc(reshape)
